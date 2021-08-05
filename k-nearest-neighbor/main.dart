@@ -1,4 +1,4 @@
-import 'algorithms/knn.dart';
+import 'knn.dart';
 
 void main(List<String> arguments) async {
   //Minimal dataset from Iris-dataset
