@@ -31,14 +31,27 @@ List getNeighbors(List train, List test_row, int num_neighbors) {
   return neighbors;
 }
 
-dynamic predictKnn(var train, var test_row, num_neighbors) {
+Map findPopularElement(List output) {
+  List results = [];
+  var map = Map();
+
+  output.forEach((element) {
+    if (!map.containsKey(element)) {
+      map[element] = 1;
+    } else {
+      map[element] += 1;
+    }
+  });
+  return map;
+}
+
+dynamic knn(var train, var test_row, num_neighbors) {
   var neighbors = getNeighbors(train, test_row, num_neighbors);
   var output_values = [];
   for (var i = 0; i < neighbors.length; i++) {
     output_values.add((neighbors[i]).last);
   }
-  print(output_values);
-  var prediction =
-      output_values.reduce((curr, next) => curr < next ? curr : next);
+  var prediction = findPopularElement(
+      output_values); //TODO: find the most occuring element in a list from the above function
   return prediction;
 }
