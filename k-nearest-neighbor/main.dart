@@ -16,6 +16,6 @@ void main(List<String> arguments) async {
     [6.1, 3.0, 4.9, 1.8, 2],
     [7.9, 3.8, 6.4, 2.0, 2]
   ];
-  var prediction = predictKnn(dataset, dataset[0], 5);
+  var prediction = knn(dataset, dataset[0], 5);
   print(prediction);
 }
