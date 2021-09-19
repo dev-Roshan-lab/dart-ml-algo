@@ -57,3 +57,27 @@ test_split(var index, var value, var dataset) {
   }
   return [left, right];
 }
+
+Map<String, dynamic> get_split(var dataset) {
+  var class_values = [];
+  for (var i = 0; i < dataset.length; i++) {
+    var row_count = dataset[i].length;
+    var dataset_class = dataset[i][row_count - 1];
+    class_values.add(dataset_class);
+  }
+  var b_index, b_value, b_score = 999.0;
+  var b_groups;
+  for (var i = 0; i < (dataset[0].length) - 1; i++) {
+    for (var x = 0; x < dataset.length; x++) {
+      var groups = test_split(i, dataset[i], dataset);
+      var gini = gini_index(groups, class_values);
+      if (gini < b_score) {
+        b_index = i;
+        b_value = dataset[i];
+        b_score = gini;
+        b_groups = groups;
+      }
+    }
+  }
+  return {'index':b_index, 'value':b_value, 'groups':b_groups};
+}
