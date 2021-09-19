@@ -15,9 +15,9 @@ double gini_index(var groups, var classes) {
   var size = 0.0;
   List getLastElement(var list) {
     var output = [];
-    list.forEach((List e) {
-      output.add(e[e.length - 1]);
-    });
+    for (int i = 0; i < list.length; i++) {
+      output.add(list[i][list[i].length - 1]);
+    }
     return output;
   }
 
@@ -45,9 +45,10 @@ double gini_index(var groups, var classes) {
   return gini;
 }
 
-test_split(var index, var value, var dataset) {
-  var left, right = [];
-  for (int i = 0; i < dataset.length; i++) {
+List test_split(var index, var value, var dataset) {
+  var left = [];
+  var right = [];
+  for (var i = 0; i < dataset.length; i++) {
     var row = dataset[i];
     if (row[index] < value) {
       left.add(row);
@@ -69,15 +70,15 @@ Map<String, dynamic> get_split(var dataset) {
   var b_groups;
   for (var i = 0; i < (dataset[0].length) - 1; i++) {
     for (var x = 0; x < dataset.length; x++) {
-      var groups = test_split(i, dataset[i], dataset);
+      var groups = test_split(i, dataset[x][i], dataset);
       var gini = gini_index(groups, class_values);
       if (gini < b_score) {
         b_index = i;
-        b_value = dataset[i];
+        b_value = dataset[x][i];
         b_score = gini;
         b_groups = groups;
       }
     }
   }
-  return {'index':b_index, 'value':b_value, 'groups':b_groups};
+  return {'index': b_index, 'value': b_value, 'groups': b_groups};
 }
