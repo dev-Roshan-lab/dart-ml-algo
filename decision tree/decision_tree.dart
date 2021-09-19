@@ -44,3 +44,16 @@ double gini_index(var groups, var classes) {
   }
   return gini;
 }
+
+test_split(var index, var value, var dataset) {
+  var left, right = [];
+  for (int i = 0; i < dataset.length; i++) {
+    var row = dataset[i];
+    if (row[index] < value) {
+      left.add(row);
+    } else {
+      right.add(row);
+    }
+  }
+  return [left, right];
+}
